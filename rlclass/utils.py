@@ -23,6 +23,6 @@ def make_animation(imgs):
       ax.imshow(imgs[0]) # Show an initial one first
     draw.append([draw_i])
   plt.close()
-  ani = animation.ArtistAnimation(fig, draw, interval=50, blit=True,
+  ani = animation.ArtistAnimation(fig, draw, interval=200, blit=True,
                               repeat=False)
   return ani
