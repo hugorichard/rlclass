@@ -1,1 +1,1 @@
-from utils import make_animation
+from .utils import make_animation
