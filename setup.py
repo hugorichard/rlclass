@@ -8,5 +8,5 @@ setup(
     description="",
     license="BSD",
     keywords="RL",
-    packages=[],
+    packages=[rlclass],
 )
