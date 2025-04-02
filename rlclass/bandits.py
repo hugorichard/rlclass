@@ -6,11 +6,14 @@ from matplotlib import rc
 rc('animation', html='jshtml')
   
     
-def animate(pi, mu, T):
+def animate(pi, mu, T, *other):
   """
   pi: policy
   mu: arm means
   T: horizon
+  other: 
+    Other parameters passed to pi
+    pi(W, N, *other)
   """
   K = len(mu)
   N = np.zeros(K)
@@ -55,7 +58,7 @@ def animate(pi, mu, T):
       ax1.axis('off')
 
       # Determine if the selected machine results in a win
-      machine_index = pi(N, W)
+      machine_index = pi(W, N, *other)
       N[machine_index] += 1
 
       # Determine the outcome of the play
