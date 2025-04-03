@@ -111,6 +111,24 @@ def compute_vpi(env, pi, gamma):
     v_pi = np.linalg.pinv(I - gamma * Ppi).dot(Rpi)
     return v_pi
 
+def compute_qpi(env, pi, gamma):
+    """Compute the state-action value function of policy pi
+
+    Args:
+        env (Environment): _description_
+        pi (np array of size (n_actions, n_states)): policy
+        gamma (float): discount factor
+    
+    Returns:
+        np array of size (n_states, n_actions): state-action value function
+    """
+    n_states = env.observation_space.n
+    n_actions = env.action_space.n
+    R, P = make_reward_function_transition_matrix(env)
+    return q_pi(R, P, gamma, pi)
+    
+
+
 def simulated_env(pos):
   """
   Creates an environment with a custom starting position.
