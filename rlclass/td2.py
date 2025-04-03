@@ -1,4 +1,5 @@
 import numpy as np
+import gymnasium
 
 
 def make_reward_function_transition_matrix(env):
@@ -109,3 +110,33 @@ def compute_vpi(env, pi, gamma):
         Ppi[s] = np.sum([P[a, s, :] * pi[a, s] for a in range(n_actions)], axis=0)
     v_pi = np.linalg.pinv(I - gamma * Ppi).dot(Rpi)
     return v_pi
+
+def simulated_env(pos):
+  """
+  Creates an environment with a custom starting position.
+
+  Parameters
+  ----------
+
+  pos: int
+    Index of startin position
+
+  Return
+  ------
+
+  env: Environement or None (if starting is not F)
+    The environment with the custom starting position
+
+  starting: int
+    "H": Startin on a H
+    "F": Starting on a F
+    "G": Starting on a G
+
+  """
+  map = [list("FFFF"), list("FHFH"), list("FFFH"), list("HFFG")]
+  if map[pos // 4][pos % 4] == "H" or map[pos // 4][pos % 4] == "G":
+    return None, map[pos // 4][pos % 4]
+  map[pos // 4][pos % 4] = "S"
+  map = ["".join(m) for m in map]
+  senv = gymnasium.make('FrozenLake-v1', render_mode="rgb_array", desc=map, is_slippery=False)
+  return senv, "F"
