@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def make_reward_function_transition_matrix(env):
   """
   Build reward function and transition function
@@ -75,6 +76,8 @@ def policy_iteration(env, n_iterations, gamma):
   pi: np array of size n_actions, n_states
     Policy that associates to a state action pair a probability
   """
+  n_states = env.observation_space.n
+  n_actions = env.action_space.n
   R, P = make_reward_function_transition_matrix(env)
   q = np.zeros((n_states, n_actions))
   for _ in range(n_iterations):
